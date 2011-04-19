@@ -1,0 +1,17 @@
+{
+  "name": "MunichJS: 2011-04-06",
+  "description": "HTML5 Slidedeck for the MunichJS meetup on 2011-04-06",
+
+  "version": "1.0.0",
+
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  },
+
+  "icons": {
+    "16": "128x128.jpg",
+    "128": "128x128.jpg"
+  }
+}

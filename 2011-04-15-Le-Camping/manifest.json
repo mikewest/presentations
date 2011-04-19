@@ -1,0 +1,12 @@
+{
+  "name": "Le Camping: 2011-04-11",
+  "description": "HTML5 Slidedeck for the LeCamping meetup on 2011-04-15",
+
+  "version": "1.0.0",
+
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  }
+}

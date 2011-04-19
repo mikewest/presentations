@@ -1,0 +1,27 @@
+CACHE MANIFEST
+# 2011-04-07
+
+CACHE:
+favicon.ico
+fonts/DroidSansMono.ttf
+fonts/Quattrocento-Regular.ttf
+fonts/OFL.txt
+images/bottom_bar.png
+images/uxebu.png
+images/chromium_architecture.png
+images/duty_calls.png
+images/spinning_beachball_of_death.gif
+images/lawnchair.png
+images/kmoo.png
+images/proxy.png
+images/webnavigation.png
+images/chromium_blog.png
+images/chrome_logo.png
+images/chromewebstore_logo.png
+images/chromium_browser.png
+images/chromium_renderer.png
+index.html
+manifest.json
+static/slide_controller.js
+static/slides.css
+

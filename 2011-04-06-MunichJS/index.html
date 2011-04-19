@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en" manifest="/appcache.manifest">
+  <head>
+    <title>MunichJS: 2011-04-06</title>
+    <link rel="stylesheet" href="./static/slides.css">
+  </head>
+  <body>
+    <article id="slides">
+      <header class="title">
+        <h1>MunichJS: 2011-04-06</h1>
+        <h2>Mike West (<a href="mailto:mkwst@google.com">mkwst@google.com</a>)</h2>
+      </header>
+      <section class="greeting">
+        <h1>Hi.  I'm Mike.</h1>
+        <p>
+          You can email me at <a href="mailto:mkwst@google.com">mkwst@google.com</a>, follow me
+          on Twitter <a href="http://twitter.com/mikewest/">@mikewest</a>, or visit my outdated blog at <a href="http://mikewest.org/">mikewest.org</a>.
+        </p>
+      </section>
+      <section>
+        <h1>Two topics:</h1>
+        <ul>
+          <li><code>IndexedDB</code> (which is awesome).</li>
+          <li>Chromium extension goodness.</li>
+        </ul>
+      </section>
+
+      <h2>IndexedDB</h2>
+
+      <section role="img">
+        <a href="http://goo.gl/moBck"><!-- http://uxebu.com/blog/2011/03/30/using-indexeddb-on-firefox/ -->
+          <img src="./images/uxebu.png" width="950" height="640" alt="Uxebu Blog (Jens Arps): 'Using IndexedBD on Firefox'">
+        </a>
+      </section>
+
+      <section>
+        <h1>Uxebu are awesome.</h1>
+        <p>I'm thrilled that they're writing abstraction layers. Seriously, this rocks. If you haven't read the article, do.</p>
+      </section>
+
+      <section>
+      <blockquote><q>But how is this better than <code>localStorage</code>? It isn't.</q></blockquote>
+        <p>I'm less thrilled that they're wrong.</p>
+      </section>
+
+      <section role="img">
+        <a href="http://xkcd.com/386/">
+          <img src="./images/duty_calls.png" width="600" height="660" alt="And we all know what happens when someone is wrong on the internet!" class="flat">
+        </a>
+      </section>
+
+      <section>
+        <p>My thesis: <code>IndexedDB</code>, or something like it, is the way forward.</p>
+        <p>Yes, it's complex, and the API could be better, but we're adults here.  We'll deal.</p>
+      </section>
+
+      <section>
+        <h1>Why <code>IndexedDB</code>?</h1>
+        <p>A short intro to Chromium internals.</p>
+      </section>
+  
+      <section role="img">
+        <a href="http://goo.gl/6g7V3"><!-- http://www.chromium.org/developers/design-documents/multi-process-architecture -->
+          <img src="./images/chromium_architecture.png" width="700" height="649" alt="Chromium's architecture splits the browser and renderer processes, and forces I/O through a single I/O thread in the browser.">
+        </a>
+      </section>
+
+      <section>
+        <p>Chromium splits the world into one <em>trusted</em> <code>browser</code> and many <em>untrusted</em> <code>renderers</code>.</p>
+      </section>
+
+      <section>
+        <h1>Browser</h1>
+        <p>All I/O goes through the browser; it's the only piece of Chromium that can make system calls, access files or DBs, and display output to the user.</p>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/otXgk"><!-- http://www.chromium.org/developers/design-documents/multi-process-architecture -->
+          <img src="./images/chromium_browser.png" width="799" height="322" alt="Trusted browser model: I/O thread, UI thread; messaging to and from renderers." class="flat">
+        </a>
+      </section>
+
+      <section>
+        <h1>Sandboxed Renderers</h1>
+        <p>Renderers run in processes with as few permissions as possible, and only have I/O access via IPC messages to the browser's process.</p>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/otXgk"><!-- http://www.chromium.org/developers/design-documents/multi-process-architecture -->
+          <img src="./images/chromium_renderer.png" width="698" height="171" alt="Untrusted renderer model: I/O thread, UI thread; messaging to and from browser." class="flat">
+        </a>
+      </section>
+
+      <section>
+        <h1>I/O is a bottleneck</h1>
+        <p>There's only one I/O messaging thread on each renderer; it's critical not to block while waiting for a response.</p>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/w629o">
+          <img src="./images/spinning_beachball_of_death.gif" width="336" height="360" alt="Behold! The spinning beachball of death!" class="flat">
+        </a>
+      </section>
+
+      <section>
+        <h1>Asynchronous APIs!</h1>
+        <p>The additional conceptual complexity aside, they allow you to smoothly continue responding to user interactions.</p>
+      </section>
+
+      <section>
+        <h1>With that in mind...</h1>
+        <p>What's wrong with this code?</p>
+        <pre><code>
+var x = JSON.stringify( <em>complexObject</em> );
+window.localStorage['x'] = x;
+window.localStorage['anotherX'] = x;
+        </code></pre>
+      </section>
+
+      <section>
+        <p>Problem 1: <code>localStorage</code> requires objects be flattened via <code>stringify</code>, called synchronously in user-space.</p>
+        <pre><code>
+var x = <mark>JSON.stringify</mark>( <em>complexObject</em> );
+window.localStorage['x'] = x;
+window.localStorage['anotherX'] = x;
+        </code></pre>
+      </section>
+  
+      <section>
+        <h1><code>IndexedDB</code> stores unserialized objects</h1>
+        <p>As far as your (single-threaded) JavaScript process is concerned, you'll never block while processing JSON.</p>
+      </section>
+
+      <section>
+        <p>Problem 2: <code>localStorage</code> itself is synchronous, which means the assignment blocks while the write goes through to the file system.</p>
+        <pre><code>
+var x = JSON.stringify( <em>complexObject</em> );
+<mark>window.localStorage['x']</mark> = x;
+window.localStorage['anotherX'] = x;
+        </code></pre>
+      </section>
+
+      <section>
+      <h1><code>IndexedDB</code> is asynchronous.</h1>
+        <pre><code>
+db.transaction(store, READ_WRITE).
+    objectStore(store).
+    put({ ... }).
+    addEventListener(
+        'onsuccess',
+        function (e) { ... });
+        </code></pre>
+      </section>
+
+      <section>
+        <p>Problem 3: There's no mechanism to ensure that <em>both</em> assignments go through successfully, nor that they both apply to the same baseline.</p>
+        <pre><code>
+var x = JSON.stringify( <em>complexObject</em> );
+window.localStorage['x'] <mark>=</mark> x;
+window.localStorage['anotherX'] <mark>=</mark> x;
+        </code></pre>
+      </section>
+
+      <section>
+        <h1>Transactions &amp; Locking</h1>
+        <pre><code>
+db.transaction(store, <mark>READ_WRITE</mark>)&hellip;
+db.transaction(store, <mark>READ_ONLY</mark>)&hellip;
+        </code></pre>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/iW0GO"><!-- http://westcoastlogic.com/lawnchair/ -->
+          <img src="./images/lawnchair.png" width="939" height="601" alt="There's work underway to plug into a friendler API, like Lawnchair.">
+        </a>
+      </section>
+
+<!-- END OF INDEXEDDB RANT -->
+
+      <h2>Chrome Privacy</h2>
+
+      <section>
+        <blockquote><q>Chromium provides users full transparency and control over the information managed by the browser.</q></blockquote>
+        <p>Our privacy team's mission statement.</p>
+      </section>
+
+      <section>
+        <p>The team approaches this task in a number of ways, notably in terms of new extension APIs.</p>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/xxCa5"><!-- https://chrome.google.com/webstore/detail/hhnjdplhmcnkiecampfdgfjilccfpfoe -->
+          <img src="./images/kmoo.png" width="900" height="603" alt="Keep My Opt-outs is a good example.">
+        </a>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/4er7F"><!-- http://code.google.com/chrome/extensions/trunk/experimental.proxy.html -->
+          <img src="./images/proxy.png" width="900" height="603" alt="Proxy Extension API is new.">
+        </a>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/IAh4O"><!-- http://code.google.com/chrome/extensions/trunk/experimental.webNavigation.html -->
+          <img src="./images/webnavigation.png" width="900" height="603" alt="WebNavigation API is also new.">
+        </a>
+      </section>
+
+      <section>
+        <h1>WebNavigation Events</h1>
+        <ul>
+          <li><code>onBeforeNavigate</code></li>
+          <li><code>onBeforeRetarget</code></li>
+          <li><code>onCommitted</code></li>
+          <li><code>onCompleted</code></li>
+          <li><code>onDOMContentLoaded</code></li>
+          <li><code>onErrorOccurred</code></li>
+        </ul>
+      </section>
+
+      <section>
+        <h1>Done when they're done...</h1>
+        <ul>
+          <li><code>WebRequest API</code></li>
+          <li><code>ContentSettings API</code></li>
+          <li>DevTools (<code>WebInspector</code>, <code>Debugger</code>, etc.)</li>
+          <li>And more... <a href="http://goo.gl/Hy6Jy">goo.gl/Hy6Jy</a></li><!-- http://code.google.com/chrome/extensions/trunk/experimental.html -->
+        </ul>
+      </section>
+
+      <section>
+        <h1>Stay up to date</h1>
+        <p><a href="http://chromestatus.com/">chromestatus.com</a> and <a href="http://peter.sh/category/last-week/">Last Week in Chromium/Webkit (goo.gl/XWEY3)</a> are great resources.</p>
+        <p><a href="http://html5rocks.com/">HTML5Rocks.com</a> is full of useful tutorials (and will be localized soonish).</p>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/i2LcZ"><!-- http://blog.chromium.org/2011/04/new-experimental-apis-for-chrome.html -->
+          <img src="./images/chromium_blog.png" width="900" height="603" alt="We're looking for good ways to use these APIs, what can you come up with?">
+        </a>
+      </section>
+
+      <section role="img">
+        <img src="./images/chromewebstore_logo.png" width="622" height="622" alt="Chrome Web Store, coming soon." class="flat">
+      </section>
+
+      <footer>
+        <h1>Questions?</h1>
+        <ul>
+          <li><a href="mailto:mkwst@google.com">mkwst@google.com</a></li>
+          <li><a href="http://twitter.com/mikewest">@mikewest</a></li>
+        </ul>
+      </footer>
+    </article>
+    <script src="./static/slide_controller.js"></script>
+    <script>
+      var sc = new SlideController('slides');
+    </script>
+  </body>
+</html>

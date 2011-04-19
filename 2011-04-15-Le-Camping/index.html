@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en" manifest="appcache.manifest">
+  <head>
+    <title>Le Camping: 2011-04-15</title>
+    <link rel="stylesheet" href="./static/slides.css">
+  </head>
+  <body>
+    <article id="slides">
+      <header>
+        <h1>Le Camping: 2011-04-15</h1>
+        <h2>Mike West (<a href="mailto:mkwst@google.com">mkwst@google.com</a>)</h2>
+      </header>
+
+      <section class="greeting">
+        <h1>Bonjour.  I'm Mike.</h1>
+        <p>
+          You can email me at
+          <a href="mailto:mkwst@google.com">mkwst@google.com</a>, follow me
+          on Twitter <a href="http://twitter.com/mikewest/">@mikewest</a>, or
+          visit my outdated blog at
+          <a href="http://mikewest.org/">mikewest.org</a>.
+        </p>
+      </section>
+
+      <aside><img src="./images/chrome_logo.png"
+               width="512"
+               height="512"
+               class="flat"
+               alt="I work on the Chrome team in Munich, Germany. Chrome is awesome. You all should use it."></aside>
+
+      <h2><img src="./images/html5_logo.png"
+               width="1000"
+               height="688"
+               class="flat"
+               alt="Today, I'd like to talk to you about HTML5"></h2>
+
+      <section>
+        <h1>Agenda:</h1>
+        <ul>
+          <li>Quick HTML5 Refresher</li>
+          <li>Code, code, code</li>
+          <li>Q<span class='amp'>&</span>A</li>
+        </ul>
+      </section>
+
+      <p>
+        Mike Mahemoff was here just a few weeks ago to talk about HTML5
+        goodness, so I won't go into a terrible amount of detail here, but I
+        do think it's important to give an overview of the things that we
+        believe make the internet a platform you should target.
+      </p><p>
+        Let's swim around in the broad concepts a bit before we dive
+        deeply into the technical detail. There are a few major themes
+        running through the new pieces of the platform, we'll touch on each
+        in turn:
+      </p>
+
+      <h2>HTML5 is:</h2>
+
+      <section>
+        <ul>
+          <li>Connected</li>
+          <li>Integrated</li>
+          <li>Multimedial</li>
+          <li>Offline</li>
+        </ul> 
+      </section>
+    
+      <h2><img src="./images/HTML5_Connectivity_512.png"
+               height="512"
+               width="512"
+               class="flat"
+               alt="Connectivity"></h2>
+
+      <section>
+        <ul>
+          <li>Realtime communication via <code>WebSockets</code></li>
+          <li>Cross-origin requests with XHR2</li>
+        </ul>
+      </section>
+
+      <h2><img src="./images/HTML5_Device_Access_512.png"
+               height="512"
+               width="512"
+               class="flat"
+               alt="Integration"></h2>
+
+      <section>
+        <ul>
+          <li>Geolocation</li>
+          <li>Orientation</li>
+          <li>Microphone (kinda)</li>
+          <li>Webcam (kinda)</li>
+        </ul>
+      </section>
+
+      <h2><img src="./images/HTML5_Multimedia_512.png"
+               height="512"
+               width="512"
+               class="flat"
+               alt="Multimedia"></h2>
+
+      <section>
+        <ul>
+          <li><code>video</code> and <code>audio</code> tags</li>
+          <li>Gradients/Shadows/Rounded Corners</li>
+          <li>SVG</li>
+          <li>Webfonts</li>
+          <li>Canvas</li>
+          <li>WebGL</li>
+          <li><code>requestAnimationFrame</code></li>
+        </ul>
+      </section>
+
+      <h2><img src="./images/HTML5_Offline_Storage_512.png"
+               height="512"
+               width="512"
+               class="flat"
+               alt="Offline"></h2>
+
+      <section>
+        <ul>
+          <li>AppCache</li>
+          <li><code>localStorage</code>/<code>sessionStorage</code></li>
+          <li>File API</li>
+          <li>WebSQL</li>
+          <li>IndexedDB</li>
+        </ul>
+      </section>
+
+      <h2>Code</h2>
+
+      <p>
+        Most of the new bits of HTML5 are built with asynchronous APIs. This
+        is a programming model that might be a little more complex than the
+        JavaScript that you're used to writing, so let's spend a little bit of
+        time talking about how things work, and why this model has become
+        critical.
+      </p><p>
+        First, reuse some of the bits of the Chromium internals talk from last
+        week. Talk about how the browser's I/O is a precious resource, the 
+        renderer's I/O even moreso, and the simple fact that non-blocking APIs
+        are the only way to maintain performance and responsiveness to user
+        interactions.
+      </p><p>
+        Then, give some examples of how to program asynchronously. Might be
+        worthwhile to introduce the various scoping mistakes that I make all
+        the time, and show what exactly `bind()` does to solve them. With that
+        basis in place, hop over to event handling and callbacks. It's an
+        important model of interaction that's really not all that complex, but
+        it might be new. Invite questions. Questions are good.
+      </p>
+
+      <section>
+        <p>
+          Before we get to the new JavaScript APIs, let's talk about a
+          coding style that runs through each.
+        </p>
+      </section>
+
+      <section>
+        <p>You could imagine that the Geolocation API might look like this:</p>
+        <pre><code>
+var loc = navigator.geolocation.getCurrentPosition;
+var latitude = loc.coords.latitude;
+var longitude = loc.coords.longitude;
+// ...
+        </code></pre>
+      </section>
+
+      <section>
+      <p>Instead, it looks like this:</p>
+        <pre><code>
+var callback = function (loc) {
+  var latitude = loc.coords.latitude;
+  var longitude = loc.coords.longitude;
+  // ...
+};
+navigator.geolocation.getCurrentPosition<mark>(<em>callback</em>)</mark>;
+        </code></pre>
+      </section>
+      
+      <section>
+        <h1>HTML5 APIs are <em>Asynchronous</em>.</h1>
+        <p>
+          This increases complexity, but also performance. You'll need to learn
+          to love events and callbacks.
+        </p>
+      </section>
+  
+      <section role="img">
+        <a href="http://goo.gl/6g7V3"><!-- http://www.chromium.org/developers/design-documents/multi-process-architecture -->
+          <img src="./images/chromium_architecture.png" width="700" height="649" alt="Chromium's architecture splits the browser and renderer processes, and forces I/O through a single I/O thread in the browser.">
+        </a>
+      </section>
+
+      <p>Chromium splits the world into one <em>trusted</em> <code>browser</code> and many <em>untrusted</em> <code>renderers</code>.</p>
+
+      <p>All I/O goes through the browser; it's the only piece of Chromium that can make system calls, access files or DBs, and display output to the user.</p>
+
+      <p>Renderers run in processes with as few permissions as possible, and only have I/O access via IPC messages to the browser's process.</p>
+
+      <section>
+        <h1>I/O is a bottleneck</h1>
+        <p>There's only one I/O messaging thread on each renderer; it's critical not to block while waiting for a response.</p>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/w629o">
+          <img src="./images/spinning_beachball_of_death.gif" width="336" height="360" alt="Behold! The spinning beachball of death!" class="flat">
+        </a>
+      </section>
+
+      <section>
+      <p>Scoping is a gotcha:</p>
+        <pre><code>
+myObject.prototype.location = function() {
+  var callback = function (loc) {
+    this.loc_ = loc;
+    this.update_map_();
+  };
+  navigator.geolocation.getCurrentPosition(<em>callback</em>);
+}
+        </code></pre>
+      </section>
+
+      <section>
+      <p>Solution #1:</p>
+        <pre><code>
+myObject.prototype.location = function() {
+  <mark>var that = this;</mark>
+  var callback = function (loc) {
+    <mark>that</mark>.loc_ = loc;
+    <mark>that</mark>.update_map_();
+  };
+  navigator.geolocation.getCurrentPosition(<em>callback</em>);
+}
+        </code></pre>
+      </section>
+
+      <section>
+      <p>Solution #2:</p>
+        <pre><code>
+myObject.prototype.location = function() {
+  var callback = <mark>(</mark>function (loc) {
+    this.loc_ = loc;
+    this.update_map_();
+  }<mark>).bind(this)</mark>
+  navigator.geolocation.getCurrentPosition(<em>callback</em>);
+}
+        </code></pre>
+      </section>
+
+      <h2><em>Demo:</em> This slide deck.</h2>
+
+      <section>
+        <p>The single best way to learn is to experiment: <a href="http://slides.html5rocks.com/">slides.html5rocks.com</a> is a really great resource.</p>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/DTZEl">
+          <img src="./images/chromewebstore_logo.png" width="622" height="622" alt="Chrome Web Store, coming soon.  And a contest!" class="flat">
+        </a>
+      </section>
+
+      <footer>
+        <h1>Questions?</h1>
+        <ul>
+          <li><a href="mailto:mkwst@google.com">mkwst@google.com</a></li>
+          <li><a href="http://twitter.com/mikewest">@mikewest</a></li>
+        </ul>
+      </footer>
+    </article>
+    <script src="./static/slide_controller.js"></script>
+    <script>
+      var sc = new SlideController('slides');
+    </script>
+  </body>
+</html>
