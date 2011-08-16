@@ -1,0 +1,16 @@
+{
+  "name": "GTUG München - 2011-07-14",
+  "description": "HTML5 Slidedeck for the GTUG München - 2011-07-14",
+
+  "version": "1.0.4",
+
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  },
+  "icons": {
+    "16": "128x128.png",
+    "128": "128x128.png"
+  }
+}

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Chrome Goes 3D: 2011-08-17</title>
+    <link rel="stylesheet" href="./static/slides.css">
+  </head>
+  <body>
+    <a id="moderator" href="http://goo.gl/OUGWx">Fragen? goo.gl/OUGWx</a>
+    <a id="deck" href="mailto:mkwst@google.com">Mike West (mkwst@google.com)</a>
+    <article id="slides">
+      <header>
+        <h1>Chrome Goes 3D</h1>
+        <h2>Mike West (<a href="mailto:mkwst@google.com">mkwst@google.com</a>)</h2>
+      </header>
+
+      <section class="greeting">
+        <h1>Grüß Gott!</h1>
+        <p>Ich bin Mike.</p>
+      </section>
+
+      <aside><img src="./static/logo/bavarian_chrome.png"
+               width="512"
+               height="512"
+               class="flat"
+               alt="I work on the Chrome team in Munich, Germany. Chrome is awesome. You all should use it."></aside>
+
+      <section>
+        <h1 class="love">
+          <img src="./static/logo/chrome.png" width="300" class="flat">
+          <span>&#x2665;</span>
+          <img src="./images/logo_webgl.png" width="300" class="flat">
+        </h1>
+      </section>
+
+      <h2>
+        <img src="./images/logo_webgl.png" width="700" class="flat">
+      </h2>
+
+      <section>
+        <h1>WebGL ist OpenGL<br/>für das Internet.</h1>
+      </section>
+
+      <!--
+        Per JavaScript, kann mann direkt auf den GPU zugreifen, und ihn steuern.
+
+        Dass heisst, dass man sehr schnell, sehr schöne effekte erzeugen kann, und
+        sehr schöne Applikationen, die vor ein Paar Jahren einfach undenkbar gewesen
+        waren. Zumindest im Netz.
+      -->
+
+      <section>
+        <h1>Systemnahe, komplexe API:</h1>
+        <p>In JavaScript produziert man rohe Daten für eine Szene; Dreiecke, Matrizen, usw.</p>
+        <p>Sie sind dann an Shadern geliefert, die ebenso in JavaScript produziert sind.</p>
+      </section>
+
+      <section>
+        <img src="./images/triangle.png" style=" position: absolute; left: 600px; top: 275px; width: 300px;">
+        <pre><code>var vertexData = [
+  // Position:
+  0.0,  0.8,  0.0,  // (X, Y, Z)
+  // Farbe (Rot):
+  1.0, 0.0, 0.0, 1.0,  // (R, G, B, A)
+
+  // Position:
+  -0.8, -0.8,  0.0,
+  // Farbe (Grün):
+  0.0, 1.0, 0.0, 1.0,
+
+  // Position:
+  0.8, -0.8,  0.0,
+  // Farbe (Blau):
+  0.0, 0.0, 1.0, 1.0
+];</code></pre>
+      </section>
+
+      <section>
+        <pre><code>// Vertex Shader
+attribute vec3 positionAttr;
+attribute vec4 colorAttr;
+
+varying vec4 vColor;
+
+void main(void) {
+    gl_Position = vec4(positionAttr, 1.0);
+    vColor = colorAttr;
+}</code></pre>
+      </section>
+
+      <section>
+        <p>Bibliotheken wie <a href="https://github.com/mrdoob/three.js">Three.js (goo.gl/frrZk)</a> und <a href="http://senchalabs.github.com/philogl/">PhiloGL (goo.gl/gt4mH)</a> sind hilfreich.</p>
+        <p>Noch mehr Bibliotheken können Sie bei Khronos unter <a href="http://goo.gl/AUwix">goo.gl/AUwix</a> finden.</p>
+      </section>
+
+      <h2>Demos!</h2>
+
+      <h2><img src="./static/logo/chrome.png" class="flat"><span style="font-size: 7em; top: -0.15em; position: relative; line-height: 400px; display: inline-block;">?</span></h2>
+
+      <section>
+        <h1>V8 Team wird in<br/> München aufgebaut.</h1>
+        <blockquote>"Make the web faster."</blockquote>
+      </section>
+
+      <!-- 
+        <p>Erste sichtbare Erfolg:<br>Typed-Array Beschleunigung.</p>
+      -->
+
+      <figure>
+        <a href="http://goo.gl/TF4ZT"><img src="./images/book_screenshot.png" width="900"></a>
+      </figure>
+
+      <figure>
+        <a href="http://www.google.com/chromeframe/eula.html?user=true&amp;hl=de">
+          <img src="./static/logo/chrome_frame.png" alt="Chrome Frame can be installed by non-admins." class="flat">
+        </a>
+      </figure>
+
+      <figure>
+        <img src="./images/chromebook_samsung.png" alt="Samsung Chromebook." class="flat">
+      </figure>
+
+<!--
+<pre class="markdown"><code>
+These are things I'd like to talk about:
+
+Chrome Tech:
+
+* Canvas
+* WebGL
+* Typed Arrays
+* V8, Crankshaft
+* Upcoming Goodness:
+  * Offscreen Tabs: https://sites.google.com/a/chromium.org/dev/developers/design-documents/extensions/offscreen-tabs
+  * Hardware Acceleration Everywhere.
+
+WebGL Demos
+
+* Google Body: http://www.google.com/url?sa=t&source=web&cd=1&ved=0CCYQFjAA&url=http%3A%2F%2Fbodybrowser.googlelabs.com%2Fmoo.html&ei=kcNKTprjK4zvsgaKqrXIBw&usg=AFQjCNE0laj27W3hosL6ASN_Cqk6Cr11hg
+* Tinkercad
+* http://ro.me/tech
+
+
+</code></pre>
+-->
+      <section>
+      <h1>Fragen? <a href="http://goo.gl/OUGWx">goo.gl/OUGWx</a></h1>
+        <iframe src="https://www.google.com/moderator/#1/e=90865&t=90865.43" width="800" height="525" style="margin-top:20px"></iframe>
+      </section>
+
+      <figure>
+        <img src="./static/qr_me.png" alt="QR Code for mkwst@google.com" class="flat">
+      </figure>
+    </article>
+    <script src="./static/slide_controller.js"></script>
+    <script>
+      var sc = new SlideController('slides');
+    </script>
+  </body>
+</html>

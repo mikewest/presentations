@@ -1,0 +1,12 @@
+{
+  "name": "Publicis Modem: 2011-06-17",
+  "description": "HTML5 Slidedeck for the Publicis Modem workshop: 2011-06-17",
+
+  "version": "1.0.0",
+
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  }
+}

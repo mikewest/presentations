@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Publicis Modem: 2011-06-17</title>
+    <link rel="stylesheet" href="./static/slides.css">
+  </head>
+  <body>
+    <a id="moderator" href="http://goo.gl/wwnJt">Questions? http://goo.gl/wwnJt</a>
+    <article id="slides">
+      <header>
+        <h1>Publicis Modem: 2011-06-17</h1>
+        <h2>Mike West (<a href="mailto:mkwst@google.com">mkwst@google.com</a>)</h2>
+      </header>
+
+      <section class="greeting">
+        <h1>Hi.  I'm Mike.</h1>
+        <p>
+          You can email me at
+          <a href="mailto:mkwst@google.com">mkwst@google.com</a>, follow me
+          on Twitter <a href="http://twitter.com/mikewest/">@mikewest</a>, or
+          visit my outdated blog at
+          <a href="http://mikewest.org/">mikewest.org</a>.
+        </p>
+      </section>
+
+      <aside><img src="./images/chrome_logo.png"
+               width="512"
+               height="512"
+               class="flat"
+               alt="I work on the Chrome team in Munich, Germany. Chrome is awesome. You all should use it."></aside>
+
+      <h2><img src="./images/html5_logo.png"
+               width="1000"
+               height="688"
+               class="flat"
+               alt="Today, I'd like to talk to you about HTML5"></h2>
+
+      <section>
+        <h1>Agenda:</h1>
+        <ul>
+          <li>HTML5</li>
+          <li>Boilerplate</li>
+          <li>Tooling</li>
+          <li>Performance</li>
+          <li>Code, code, code</li>
+          <li>Q<span class='amp'>&</span>A</li>
+        </ul>
+      </section>
+
+      <h2>HTML5 is:</h2>
+    
+      <h2><img src="./images/HTML5_Connectivity_512.png"
+               height="512"
+               width="512"
+               class="flat"
+               alt="Connectivity"></h2>
+
+      <section>
+        <ul>
+          <li>Realtime communication via <code>WebSockets</code></li>
+          <li>Cross-origin requests with XHR2</li>
+        </ul>
+      </section>
+
+      <h2><img src="./images/HTML5_Device_Access_512.png"
+               height="512"
+               width="512"
+               class="flat"
+               alt="Integration"></h2>
+
+      <section>
+        <ul>
+          <li>Geolocation</li>
+          <li>Orientation</li>
+          <li>Microphone (kinda)</li>
+          <li>Webcam (kinda)</li>
+        </ul>
+      </section>
+
+      <h2><img src="./images/HTML5_Multimedia_512.png"
+               height="512"
+               width="512"
+               class="flat"
+               alt="Multimedia"></h2>
+
+      <section>
+        <ul>
+          <li><code>video</code> and <code>audio</code> tags</li>
+          <li>Gradients/Shadows/Rounded Corners</li>
+          <li>SVG</li>
+          <li>Webfonts</li>
+          <li>Canvas</li>
+          <li>WebGL</li>
+          <li><code>requestAnimationFrame</code></li>
+        </ul>
+      </section>
+
+      <h2><img src="./images/HTML5_Offline_Storage_512.png"
+               height="512"
+               width="512"
+               class="flat"
+               alt="Offline"></h2>
+
+      <section>
+        <ul>
+          <li>AppCache</li>
+          <li><code>localStorage</code>/<code>sessionStorage</code></li>
+          <li>File API</li>
+          <li>WebSQL</li>
+          <li>IndexedDB</li>
+        </ul>
+      </section>
+
+      <section>
+        <p>The single best way to learn is to experiment: <a href="http://slides.html5rocks.com/">slides.html5rocks.com</a> is a really great resource, as is <a href="http://www.htmlfivewow.com/">HTML5: The How and the Wow</a>.</p>
+      </section>
+
+      <h2>Boilerplate</h2>
+
+      <section role="img">
+        <a href="http://html5boilerplate.com/">
+          <img src="./images/boilerplate.png" width="800" alt="HTML5Boilerplate">
+        </a>
+      </section> 
+
+      <h2>Tooling</h2>
+      
+      <section role="img">
+        <a href="http://code.google.com/closure/">
+          <img src="./images/closurecompiler.png" width="650" alt="Closure Compiler web UI">
+        </a>
+      </section>
+  
+      <section role="img">
+        <a href="http://yuilibrary.com/projects/yuicompressor/">
+          <img src="./images/yuicompressor.png" width="750" alt="YUICompressor at YUILibrary.">
+        </a>
+      </section>
+
+      <section role="img">
+        <a href="http://jslint.com/">
+          <img src="./images/jslint.png" width="750" alt="JSLint web UI">
+        </a>
+      </section>
+
+      <section role="img">
+        <a href="http://projects.mikewest.org/jslint_utils/">
+          <img src="./images/jslintutils.png" alt="Continiously hurting your feelings.">
+        </a>
+      </section>
+
+      <section role="img">
+        <a href="http://rtomayko.github.com/rocco/">
+          <img src="./images/rocco.png" width="700" alt="demo of rocco output">
+        </a>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/sjb9P"><!-- http://www.google.com/events/io/2011/sessions/chrome-dev-tools-reloaded.html -->
+          <img src="./images/devtools.png" width="900" alt="Paul Irish!">
+        </a>
+      </section>
+
+      <h2>Performance</h2>
+
+      <section role="img">
+        <a href="http://code.google.com/speed/page-speed/"> <!-- http://code.google.com/speed/page-speed/ -->
+          <img src="./images/pagespeed.png" width="720" height="630" alt="Screenshot of PageSpeed's homepage">
+        </a>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/4ADZU"> <!-- https://chrome.google.com/webstore/detail/ninejjcohidippngpapiilnmkgllmakh -->
+          <img src="./images/yslow.png" width="700" height="630" alt="Screenshot of YSlow in CWS">
+        </a>
+      </section>
+
+      <section role="img">
+        <a href="http://redbot.org/">
+          <img src="./images/redbot.png" width="700" alt="Screenshot of Redbot">
+        </a>
+      </section>
+
+      <h2>Code</h2>
+
+      <section>
+        <p>
+          Before we get to the new JavaScript APIs, let's talk about a
+          coding style that runs through each.
+        </p>
+      </section>
+
+      <section>
+        <p>You could imagine that the Geolocation API might look like this:</p>
+        <pre><code>
+var loc = navigator.geolocation.getCurrentPosition;
+var latitude = loc.coords.latitude;
+var longitude = loc.coords.longitude;
+// ...
+        </code></pre>
+      </section>
+
+      <section>
+      <p>Instead, it looks like this:</p>
+        <pre><code>
+var callback = function (loc) {
+  var latitude = loc.coords.latitude;
+  var longitude = loc.coords.longitude;
+  // ...
+};
+navigator.geolocation.getCurrentPosition<mark>(<em>callback</em>)</mark>;
+        </code></pre>
+      </section>
+      
+      <section>
+        <h1>HTML5 APIs are <em>Asynchronous</em>.</h1>
+        <p>
+          This increases complexity, but also performance. You'll need to learn
+          to love events and callbacks.
+        </p>
+      </section>
+  
+      <section role="img">
+        <a href="http://goo.gl/6g7V3"><!-- http://www.chromium.org/developers/design-documents/multi-process-architecture -->
+          <img src="./images/chromium_architecture.png" width="700" height="649" alt="Chromium's architecture splits the browser and renderer processes, and forces I/O through a single I/O thread in the browser.">
+        </a>
+      </section>
+
+      <p>Chromium splits the world into one <em>trusted</em> <code>browser</code> and many <em>untrusted</em> <code>renderers</code>.</p>
+
+      <p>All I/O goes through the browser; it's the only piece of Chromium that can make system calls, access files or DBs, and display output to the user.</p>
+
+      <p>Renderers run in processes with as few permissions as possible, and only have I/O access via IPC messages to the browser's process.</p>
+
+      <section>
+        <h1>I/O is a bottleneck</h1>
+        <p>There's only one I/O messaging thread on each renderer; it's critical not to block while waiting for a response.</p>
+      </section>
+
+      <section role="img">
+        <a href="http://goo.gl/w629o">
+          <img src="./images/spinning_beachball_of_death.gif" width="336" height="360" alt="Behold! The spinning beachball of death!" class="flat">
+        </a>
+      </section>
+
+      <section>
+      <p>Scoping is a gotcha:</p>
+        <pre><code>
+myObject.prototype.location = function() {
+  var callback = function (loc) {
+    this.loc_ = loc;
+    this.update_map_();
+  };
+  navigator.geolocation.getCurrentPosition(<em>callback</em>);
+}
+        </code></pre>
+      </section>
+
+      <section>
+      <p>Solution #1:</p>
+        <pre><code>
+myObject.prototype.location = function() {
+  <mark>var that = this;</mark>
+  var callback = function (loc) {
+    <mark>that</mark>.loc_ = loc;
+    <mark>that</mark>.update_map_();
+  };
+  navigator.geolocation.getCurrentPosition(<em>callback</em>);
+}
+        </code></pre>
+      </section>
+
+      <section>
+      <p>Solution #2:</p>
+        <pre><code>
+myObject.prototype.location = function() {
+  var callback = <mark>(</mark>function (loc) {
+    this.loc_ = loc;
+    this.update_map_();
+  }<mark>).bind(this)</mark>
+  navigator.geolocation.getCurrentPosition(<em>callback</em>);
+}
+        </code></pre>
+      </section>
+
+      <h2><em>Demo:</em> This slide deck.</h2>
+
+
+      <section role="img">
+        <a href="http://goo.gl/DTZEl">
+          <img src="./images/chromewebstore_logo.png" width="622" height="622" alt="Chrome Web Store, coming soon.  And a contest!" class="flat">
+        </a>
+      </section>
+
+      <footer>
+        <h1>Questions?</h1>
+        <ul>
+          <li><a href="mailto:mkwst@google.com">mkwst@google.com</a></li>
+          <li><a href="http://twitter.com/mikewest">@mikewest</a></li>
+        </ul>
+      </footer>
+    </article>
+    <script src="./static/slide_controller.js"></script>
+    <script>
+      var sc = new SlideController('slides');
+    </script>
+  </body>
+</html>

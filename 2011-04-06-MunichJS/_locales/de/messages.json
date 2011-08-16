@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "message": "MunichJS: 2011-04-06",
+    "description": "Title."
+  },
+  "extensionDesc": {
+    "message": "HTML5 Slidedeck for the MunichJS meetup on 2011-04-06",
+    "description": "description."
+  }
+}
