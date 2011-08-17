@@ -49,7 +49,7 @@ a, a:visited {
 }
 
 #moderator {
-  bottom: 0.5em;
+  top: 0.5em;
   color: #CCC;
   font: bold 1.2em Helvetica,'Droid Sans',Arial,'Sans Serif';
   left: 0.5em;
@@ -57,7 +57,7 @@ a, a:visited {
 }
 
 #deck {
-  bottom: 0.5em;
+  top: 0.5em;
   color: #CCC;
   font: bold 1.2em Helvetica,'Droid Sans',Arial,'Sans Serif';
   right: 0.5em;

@@ -33,9 +33,9 @@
         </h1>
       </section>
 
-      <h2>
+      <figure>
         <img src="./images/logo_webgl.png" width="700" class="flat">
-      </h2>
+      </figure>
 
       <section>
         <h1>WebGL ist OpenGL<br/>für das Internet.</h1>
@@ -54,6 +54,10 @@
         <p>In JavaScript produziert man rohe Daten für eine Szene; Dreiecke, Matrizen, usw.</p>
         <p>Sie sind dann an Shadern geliefert, die ebenso in JavaScript produziert sind.</p>
       </section>
+
+      <figure>
+        <img src="./images/teapot.png">
+      </figure>
 
       <section>
         <img src="./images/triangle.png" style=" position: absolute; left: 600px; top: 275px; width: 300px;">
@@ -81,10 +85,16 @@ attribute vec3 positionAttr;
 attribute vec4 colorAttr;
 
 varying vec4 vColor;
-
 void main(void) {
     gl_Position = vec4(positionAttr, 1.0);
     vColor = colorAttr;
+}</code></pre>
+        <pre><code>// Fragment Shader
+precision mediump float;
+
+varying vec4 vColor;
+void main(void) {
+    gl_FragColor = vColor;
 }</code></pre>
       </section>
 
@@ -98,8 +108,15 @@ void main(void) {
       <h2><img src="./static/logo/chrome.png" class="flat"><span style="font-size: 7em; top: -0.15em; position: relative; line-height: 400px; display: inline-block;">?</span></h2>
 
       <section>
-        <h1>V8 Team wird in<br/> München aufgebaut.</h1>
-        <blockquote>"Make the web faster."</blockquote>
+        <blockquote style="font-size: 7em">"Make the web faster."</blockquote>
+      </section>
+
+      <section>
+        <h1>GPU Everywhere</h1>
+      </section>
+
+      <section>
+        <h1>V8 Team wird in<br> München aufgebaut.</h1>
       </section>
 
       <!-- 
@@ -109,6 +126,10 @@ void main(void) {
       <figure>
         <a href="http://goo.gl/TF4ZT"><img src="./images/book_screenshot.png" width="900"></a>
       </figure>
+
+      <section>
+        <iframe width="640" height="390" src="https://www.youtube.com/embed/DyKrHQxZ3MA" frameborder="0" allowfullscreen></iframe>
+      </section>
 
       <figure>
         <a href="http://www.google.com/chromeframe/eula.html?user=true&amp;hl=de">
