@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>#gtug11hack -- 2011-08-17</title>
+    <link rel="stylesheet" href="./static/slides.css">
+  </head>
+  <body>
+    <a id="moderator" href="http://goo.gl/DEk85">Questions? goo.gl/DEk85</a>
+    <a id="deck" href="mailto:mkwst@google.com">mkwst@google.com // @mikewest</a>
+    <article id="slides">
+      <header>
+        <h1>#gtug11hack</h1>
+        <h2>Mike West (<a href="mailto:mkwst@google.com">mkwst@google.com</a>)</h2>
+      </header>
+
+      <aside><img src="./static/logo/bavarian_chrome.png"
+               width="512"
+               height="512"
+               class="flat"
+               alt="I work on the Chrome team in Munich, Germany. Chrome is awesome. You all should use it."></aside>
+
+      <figure>
+        <img src="./images/chrome-flat.png" class="flat" width="950">
+      </figure>
+
+      <figure>
+        <img src="./images/chrome-browseraction.png" class="flat" width="950">
+      </figure>
+
+      <figure>
+        <img src="./images/chrome-browseraction-popup.png" width="500">
+      </figure>
+
+      <figure>
+        <img src="./images/chrome-pageaction.png" width="950" class="flat">
+      </figure>
+
+      <figure>
+        <img src="./images/chrome-application.png" class="flat" width="925">
+      </figure>
+
+      <h2>Building Blocks</h2>
+
+      <section>
+        <h1>Manifest File</h1>
+        <p>JSON file that provides an extension's metainformation (<a href="http://code.google.com/chrome/extensions/manifest.html">goo.gl/2otQP</a>).</p>
+      </section>
+
+      <section>
+        <h1><code>manifest.json</code></h1>
+        <pre><code>{
+  "name": "A Sample Extension",
+  "version": "0.0.1",
+  "description": "This is a sample extension.",
+  "icons": {
+    "128": "icon_128.png"
+  },
+  "browser_action": {
+    "default_icon": "icon_19.png",
+    "default_popup": "popup.html"
+  },
+  "background_page": "background.html",
+  "permissions": [ "notifications", "geolocation" ]
+  &hellip;
+}</code></pre>
+      </section>
+
+      <section>
+        <h1>Background Page</h1>
+        <p>HTML document that runs JavaScript persistently and invisibly (<a href="http://code.google.com/chrome/extensions/background_pages.html">goo.gl/EwiKy</a>).</p>
+      </section>
+
+      <section>
+        <h1>Popup Page</h1>
+        <p>HTML document with which the user interacts (<a href="http://code.google.com/chrome/extensions/browserAction.html">goo.gl/M6Oe3</a>).</p>
+      </section>
+
+      <section>
+        <h1>Modern JavaScript APIs</h1>
+        <p>WebKit &hearts; Desktop notifications, geolocation, local storage mechanisms, getters/setters, etc.</p>
+      </section>
+
+      <h2><code>chrome.*</code> APIs</h2>
+
+      <section>
+        <h1>The current list of stable extension APIs is at <a href="http://code.google.com/chrome/extensions/dev/api_index.html">goo.gl/lTzWn</a></h1>
+        <p><em>Make sure you're running the latest <strong>dev</strong> version of Chrome.</em></p>
+      </section>
+
+      <section>
+        <p>Experimental APIs are also available (<a href="http://code.google.com/chrome/extensions/dev/experimental.html">goo.gl/Kn7vd</a>), but are locked behind a flag.</p>
+        <img src="./images/chrome-experimental.png" class="flat">
+      </section>
+
+      <h2>Walkthrough: <a href="http://codesearch.google.com/#OAMlx_jo-ck/src/chrome/common/extensions/docs/examples/api/webNavigation/basic/manifest.json&type=cs">WebNavigation (goo.gl/nGSHj)</a></h2>
+
+      <h2>Applications</h2>
+
+      <section>
+      <h1>Hosted (<a href="http://code.google.com/chrome/apps/docs/developers_guide.html">goo.gl/SdN32</a>) or Packaged (<a href="http://code.google.com/chrome/extensions/apps.html">goo.gl/6EYNE</a>)?</h1>
+      </section>
+
+      <figure>
+        <img src="./static/qr_me.png" alt="QR Code for mkwst@google.com" class="flat">
+      </figure>
+    </article>
+    <script src="./static/slide_controller.js"></script>
+    <script>
+      var sc = new SlideController('slides');
+    </script>
+  </body>
+</html>
